@@ -39,7 +39,7 @@ def retrieve_relevant_chunks(query, faiss_index, chunk_texts, embedding_model_na
     return [chunk_texts[i] for i in indices[0]]
 
 
-API_URL = "https://api-inference.huggingface.co/models/tiiuae/falcon-7b-instruct"
+API_URL = "https://api-inference.huggingface.co/models/tiiuae/falcon-40b-instruct"
 API_TOKEN = os.getenv('ACCESS_TOKEN')
 
 def query_huggingface_api(prompt):
@@ -47,7 +47,7 @@ def query_huggingface_api(prompt):
     payload = {
         "inputs": prompt,
         "parameters": {
-            "max_new_tokens": 200,
+            "max_new_tokens": 512,
             "temperature": 0.5,
             "top_p":0.9,
             "repetition_penalty":1.2
@@ -68,7 +68,7 @@ def generate_response(query):
     context = "\n".join(retrieved_chunks)
     prompt = f"Context: {context}\n\nQuery: {query}\n\nAnswer:"
     outputs = query_huggingface_api(prompt)
-    # print(outputs)
+    print(outputs)
     if 'Answer:' in outputs:
         answer=outputs.split('Answer:')[-1].strip()
         return answer
