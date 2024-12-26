@@ -41,7 +41,7 @@ def retrieve_relevant_chunks(query, faiss_index, chunk_texts, embedding_model_na
 
 API_URL = "https://api-inference.huggingface.co/models/tiiuae/falcon-7b-instruct"
 API_TOKEN = os.getenv('HUGGING_FACE_ACCESS_TOKEN')
-print(API_TOKEN)
+print('API_TOKEN',API_TOKEN)
 
 def query_huggingface_api(prompt):
     headers = {"Authorization": f"Bearer {API_TOKEN}"}
