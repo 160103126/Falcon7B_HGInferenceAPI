@@ -1,7 +1,10 @@
 name: Set Environment Secret
 
 on:
-  workflow_dispatch: # Allows manual trigger of the workflow
+    push:
+      branches:
+        - main
+    workflow_dispatch:
 
 jobs:
   setup:
