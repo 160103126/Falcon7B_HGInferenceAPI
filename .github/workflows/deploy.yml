@@ -1,13 +1,13 @@
-name: Deploy to Streamlit Cloud
+name: Prepare for Streamlit Cloud
 
 on:
   push:
     branches:
-      - main  # Trigger on pushes to the main branch
-  workflow_dispatch:  # Allow manual triggers
+      - main  # Adjust branch name if necessary
+  workflow_dispatch:
 
 jobs:
-  deploy:
+  test-and-build:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,8 +24,8 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Deploy to Streamlit Cloud
+    - name: Run Streamlit for testing
       env:
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
       run: |
-        streamlit deploy . --server.port 8501
+        streamlit run app.py --server.headless true
